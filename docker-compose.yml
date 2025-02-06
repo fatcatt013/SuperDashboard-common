@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    image: node:18
+    container_name: backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    ports:
+      - "3000:3000"
+    command: ["sh", "-c", "npm install && npm start"]
+    depends_on:
+      - db
+
+  frontend:
+    image: node:18
+    container_name: frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "4200:4200"
+    command: ["sh", "-c", "npm install && npm start"]
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15
+    container_name: database
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    ports:
+      - "4001:5432"
+
+volumes:
+  backend:
+  frontend:
