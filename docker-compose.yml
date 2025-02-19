@@ -10,8 +10,6 @@ services:
     ports:
       - "6002:3000"
     command: ["sh", "-c", "npm install && npm start"]
-    depends_on:
-      - db
 
   frontend:
     image: node:18
